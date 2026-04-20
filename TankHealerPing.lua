@@ -16,25 +16,21 @@ local function CheckApplicants()
         activeSet[applicantID] = true
         if not seenApplicants[applicantID] then
             seenApplicants[applicantID] = true
-
-            local info = C_LFGList.GetApplicantInfo(applicantID)
-            if info then
-                local numMembers = info.numMembers or 1
-                for i = 1, numMembers do
-                    local memberInfo = C_LFGList.GetApplicantMemberInfo(applicantID, i)
-                    if memberInfo then
-                        local role = memberInfo.role
-                        if role == "TANK" or role == "HEALER" then
-                            PlaySound(SOUNDKIT.ALARM_CLOCK_RINGING_2, "Master")
-                            break
+            C_Timer.After(3, function()
+                local info = C_LFGList.GetApplicantInfo(applicantID)
+                if info then
+                    for i = 1, info.numMembers or 1 do
+                        local _, _, _, _, _, tank, healer = C_LFGList.GetApplicantMemberInfo(applicantID, i)
+                        if tank or healer then
+                            PlaySound(SOUNDKIT.LFG_ROLE_CHECK, "Master")
+                            return
                         end
                     end
                 end
-            end
+            end)
         end
     end
 
-    -- Prune applicants no longer in the list
     for id in pairs(seenApplicants) do
         if not activeSet[id] then
             seenApplicants[id] = nil
