@@ -21,8 +21,11 @@ local function CheckApplicants()
                 if info then
                     for i = 1, info.numMembers or 1 do
                         local _, _, _, _, _, tank, healer = C_LFGList.GetApplicantMemberInfo(applicantID, i)
-                        if tank or healer then
-                            PlaySound(SOUNDKIT.LFG_ROLE_CHECK, "Master")
+                        if tank then
+                            PlaySoundFile("Interface\\AddOns\\" .. addonName .. "\\sounds\\TankFound.ogg", "Master")
+                            return
+                        elseif healer then
+                            PlaySoundFile("Interface\\AddOns\\" .. addonName .. "\\sounds\\HealerFound.ogg", "Master")
                             return
                         end
                     end
