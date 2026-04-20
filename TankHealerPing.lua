@@ -16,11 +16,11 @@ local function CheckApplicants()
         activeSet[applicantID] = true
         if not seenApplicants[applicantID] then
             seenApplicants[applicantID] = true
-            C_Timer.After(3, function()
+            C_Timer.After(1, function()
                 local info = C_LFGList.GetApplicantInfo(applicantID)
                 if info then
                     for i = 1, info.numMembers or 1 do
-                        local _, _, _, _, _, tank, healer = C_LFGList.GetApplicantMemberInfo(applicantID, i)
+                        local _, _, _, _, _, _, tank, healer = C_LFGList.GetApplicantMemberInfo(applicantID, i)
                         if tank then
                             PlaySoundFile("Interface\\AddOns\\" .. addonName .. "\\sounds\\TankFound.ogg", "Master")
                             return
