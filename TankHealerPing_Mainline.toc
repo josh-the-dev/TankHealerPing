@@ -1,0 +1,9 @@
+## Interface: 120001, 120005
+## Title: TankHealerPing
+## Notes: Plays a sound when a tank or healer applies to your Group Finder listing
+## Author:
+## Version: 1.0.0
+## Category: Group
+## SavedVariables: TankHealerPingDB
+
+TankHealerPing.lua
